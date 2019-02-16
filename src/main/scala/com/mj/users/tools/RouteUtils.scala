@@ -6,12 +6,13 @@ import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server._
 import akka.stream.ActorMaterializer
 import com.mj.users.route._
-import com.mj.users.route.upload.{UploadImageRoute, UploadVideoRoute}
+import com.mj.users.route.upload.{UploadAvatarRoute, UploadImageRoute, UploadProfileBGRoute, UploadVideoRoute}
+import com.mj.users.tools.RouteUtils.{uploadAvatar, uploadProfileBG}
 import org.joda.time.DateTime
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object RouteUtils extends UploadImageRoute with UploadVideoRoute {
+object RouteUtils extends UploadImageRoute with UploadVideoRoute with UploadAvatarRoute with UploadProfileBGRoute{
 
   /*  createUsersCollection()
     createOnlinesCollection()*/
@@ -79,7 +80,7 @@ object RouteUtils extends UploadImageRoute with UploadVideoRoute {
                  system: ActorSystem,
                  materializer: ActorMaterializer) = {
 
-    uploadImage(system, materializer) ~ uploadVideo(system , materializer)
+    uploadImage(system, materializer) ~ uploadVideo(system , materializer) ~ uploadAvatar(system , materializer) ~ uploadProfileBG(system , materializer)
   }
 
   def logRoute(implicit ec: ExecutionContext,

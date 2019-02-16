@@ -35,6 +35,8 @@ object Server extends App {
 
   val uploadImageProcessor = system.actorOf(RoundRobinPool(poolSize).props(Props[processor.upload.UploadImageProcessor]), "uploadImageProcessor")
   val uploadVideoProcessor = system.actorOf(RoundRobinPool(poolSize).props(Props[processor.upload.UploadVideoProcessor]), "uploadVideoProcessor")
+  val uploadAvatarProcessor = system.actorOf(RoundRobinPool(poolSize).props(Props[processor.upload.UploadAvatarProcessor]), "uploadAvatarProcessor")
+  val uploadProfileBGProcessor = system.actorOf(RoundRobinPool(poolSize).props(Props[processor.upload.UploadProfileBGProcessor]), "uploadProfileBGProcessor")
 
   import system.dispatcher
 
